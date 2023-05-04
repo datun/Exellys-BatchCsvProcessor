@@ -11,16 +11,16 @@ A "small" python project to process multiple csv files in one go
 
 ### Planned To-Do Items (in order of importance)
 
-- Creating a release
-- Creating a flowchart
-- Writing a small manual
+- [ ] Creating a release
+- [ ] Creating a flowchart
+- [ ] Writing a small manual
 - New Features
-    - Date range selection
-    - Additional functions (per request)
-    - Column type inference
-    - Column selector
-    - Unique column identifier
-    - Passing a config
+    - [ ] Date range selection
+    - [ ] Additional functions (per request)
+    - [X] Column type inference
+    - [ ] Column selector
+    - [ ] Unique column identifier
+    - [ ] Passing a config
 
 ## Installation
 Installation of this app is simple.

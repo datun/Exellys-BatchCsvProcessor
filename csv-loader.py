@@ -1,8 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
-
-# In[4]:
-
 
 import numpy as np
 import pandas as pd
@@ -50,16 +46,59 @@ def input_checker(data_list, file_names):
                 print("Input is not a digit!\n")
         elif in_var.capitalize() == "N":
             checking = False
+            # Accepted inputs are finalised, inferring data type
+            for i in data_list:
+                i = i.infer_objects()
         else:
             print("Input is not in correct form!\n")
             
-            
+def csv_date_range(data_list):
+    
+    while true:
+        check = 0
+        print("Please input range of dates for filtering\n
+              Format your date input as YYYY-MM-DD or YYYY-MM or YYYY\n
+              If you want to have no upper or lower limit, input -1")
+        if not check:
+            date_in = input ("Type start date: ")
+        if check:
+            date_in = input ("Type end date: ")
+
+        match date_in:
+            case r"^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$": #DAY
+            case r"^(19|20)\d\d[- /.](0[1-9]|1[012])$": #MONTH
+            case r"^(19|20)\d\d$": #YEAR
+            case -1: # NO LIMIT
+            case _: # INVALID
+        
+        # THE LOGIC IS THIS, BUT MATE SUBTRACTING DATES ARE DUMB AS FUCK.
+        # RATHER COMPARE YEARS THEN MONTHS THEN DAYS
+        # BUT THAT IS A VERY UGLY CODE
+        if check == 2:
+            if date_range[1] == -1:
+                OK
+            elif date_range[1] - date_range[0]:
+                OK
+            else:
+                NOK
+
+
+    in_start = input("Type start date: ")
+    in_end = input("\nType end date: ")
+    date_range = (in_start,in_end)
+
+    for i in data_list:
+        i.iloc[:,9]
+
+
 def csv_avg(data_list, file_names):
     output = []
     # Create dataframes with file name and averages
     for i in range(len(data_list)):
         columns = [file_names[i] + " Average"]
         df = data_list[i]
+
+        # HARDCODED COLUMN LOCATION REMEMBER TO MODIFY AFTERWARDS #
         interm = pd.DataFrame(df.iloc[:,2:6].mean().round(3),columns=columns)
         # Store in output list
         output.append(interm)
@@ -69,32 +108,31 @@ def csv_avg(data_list, file_names):
 csv_list = os.listdir()
 
 
-# In[5]:
-
-
 # Info for which columns to choose (and for future improvements)
 # 2,3,4,5 : integer check
 # 9: Start Date / 10: Submit Date
 
 
-# In[6]:
-
-
 if __name__ == "__main__":
     data_list, file_names = csv_2_list(csv_list)
-    input_checker(data_list, file_names)
-    output = csv_avg(data_list, file_names)
+    if data_list:
+        input_checker(data_list, file_names)
+        if len(data_list):
+            output = csv_avg(data_list, file_names)
     
-    # Concat the output list
-    output = pd.concat(output, axis=1)
-    output = output.rename_axis(index="Questions", columns="File Name")
+            # Concat the output list
+            output = pd.concat(output, axis=1)
+            output = output.rename_axis(index="Questions", columns="File Name")
 
 
-    # Get the working directory
-    out_path = os.path.join(os.getcwd(), "processed_output.csv")
-    print("Output file is saved at this path: " + str(out_path))
-    # Save to working directory
-    output.to_csv(out_path)
-
+            # Get the working directory
+            out_path = os.path.join(os.getcwd(), "processed_output.csv")
+            print("Output file is saved at this path: " + str(out_path))
+            # Save to working directory
+            output.to_csv(out_path)
+        else:
+            print("The processing list is empty!")
+    else:
+        print("No csv files are found within work directory")
     input("Press Any Key to Exit")
 
