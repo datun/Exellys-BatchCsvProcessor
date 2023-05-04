@@ -26,7 +26,7 @@ A "small" python project to process multiple csv files in one go
 Installation of this app is simple.
 
 1. Download the latest release from here (*release TBD, link to be placed*)
-2. Install (Python)[https://www.python.org/]
+2. Install [Python](https://www.python.org/)
 3. Install dependencies
     1. Method #1: Install via scripts
         - Open the setup folder
