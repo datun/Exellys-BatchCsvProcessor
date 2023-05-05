@@ -50,6 +50,9 @@ def input_checker(data_list, file_names):
                 print("Input is not a digit!\n")
         elif in_var.capitalize() == "N":
             checking = False
+            # Accepted inputs are finalised, inferring data type
+            for i in data_list:
+                i = i.infer_objects()
         else:
             print("Input is not in correct form!\n")
             
@@ -60,12 +63,13 @@ def csv_avg(data_list, file_names):
     for i in range(len(data_list)):
         columns = [file_names[i] + " Average"]
         df = data_list[i]
-        interm = pd.DataFrame(df.iloc[:,2:6].mean().round(3),columns=columns)
+        interm = pd.DataFrame(df.iloc[:, 2:6].mean().round(3), columns=columns)
         # Store in output list
         output.append(interm)
     return output
-    
-## Global Variables
+
+
+# Global Variables
 csv_list = os.listdir()
 
 
@@ -77,24 +81,25 @@ csv_list = os.listdir()
 # 9: Start Date / 10: Submit Date
 
 
-# In[6]:
-
-
 if __name__ == "__main__":
     data_list, file_names = csv_2_list(csv_list)
-    input_checker(data_list, file_names)
-    output = csv_avg(data_list, file_names)
-    
-    # Concat the output list
-    output = pd.concat(output, axis=1)
-    output = output.rename_axis(index="Questions", columns="File Name")
+    if data_list:
+        input_checker(data_list, file_names)
+        if len(data_list):
+            output = csv_avg(data_list, file_names)
 
+            # Concat the output list
+            output = pd.concat(output, axis=1)
+            output = output.rename_axis(index="Questions", columns="File Name")
 
-    # Get the working directory
-    out_path = os.path.join(os.getcwd(), "processed_output.csv")
-    print("Output file is saved at this path: " + str(out_path))
-    # Save to working directory
-    output.to_csv(out_path)
-
+            # Get the working directory
+            out_path = os.path.join(os.getcwd(), "processed_output.csv")
+            print("Output file is saved at this path: " + str(out_path))
+            # Save to working directory
+            output.to_csv(out_path)
+        else:
+            print("The processing list is empty!")
+    else:
+        print("No csv files are found within work directory")
     input("Press Any Key to Exit")
 
