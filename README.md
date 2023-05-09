@@ -11,7 +11,9 @@ A "small" python project to process multiple csv files in one go
 
 ### Planned To-Do Items (in order of importance)
 
-- [ ] Creating a release
+- [X] Creating a release
+- [ ] Modularising the process
+- [ ] Adding checks for setup scripts (python there or not, print meaningful errors during setup etc.)
 - [ ] Creating a flowchart
 - [ ] Writing a small manual
 - New Features

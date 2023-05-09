@@ -4,54 +4,8 @@ import numpy as np
 import pandas as pd
 import os
 import re
-
-def csv_2_list(csv_list):
-    data_list = []  # Create a list with csv loaded as pandas
-    file_names = [] # Store a list of valid file names
-    for i in csv_list:
-        if i.endswith(".csv"):
-            try:
-                # Skip the output file
-                if i == "processed_output.csv":
-                    continue
-                else:
-                    data_list.append(pd.read_csv(i))
-                    file_names.append(i)
-            except:
-                print("Error regarding opening files.")
-    return data_list, file_names
-            
-
-def input_checker(data_list, file_names):
-    checking = True
-    while checking:
-        print("## This is the list of files that are loaded: ##")
-        for i in range(len(file_names)):
-            print(str(i) + ": " + str(file_names[i]))
-
-        print("Does the list contain any unwanted .csv files?")
-        in_var = input("Type Y/N (Y: Yes/ N: No): ")
-        print("\n")
-
-        if in_var.capitalize() == "Y":
-            in_var = input("Type number assigned to the csv: ")
-            print("\n")
-            if in_var.isdigit():
-                in_var = int(in_var)
-                if in_var < len(data_list):
-                    data_list.pop(in_var)
-                    file_names.pop(in_var)
-                else:
-                    print("Input is out of range!\n")
-            else:
-                print("Input is not a digit!\n")
-        elif in_var.capitalize() == "N":
-            checking = False
-            # Accepted inputs are finalised, inferring data type
-            for i in data_list:
-                i = i.infer_objects()
-        else:
-            print("Input is not in correct form!\n")
+from util/sheet_loader.py import * as sLoad
+from util/sheet_operations.py import * as sOps
             
 def csv_date_range(data_list):
     date_range = []
@@ -127,7 +81,7 @@ def csv_avg(data_list, file_names):
     return output
     
 ## Global Variables
-csv_list = os.listdir()
+data_list = os.listdir()
 
 
 # Info for which columns to choose (and for future improvements)
@@ -136,9 +90,9 @@ csv_list = os.listdir()
 
 
 if __name__ == "__main__":
-    data_list, file_names = csv_2_list(csv_list)
+    data_list, file_names = sLoad.data_2_list(data_list)
     if data_list:
-        input_checker(data_list, file_names)
+        sLoad.verify_input_list(data_list, file_names)
         if len(data_list):
             output = csv_avg(data_list, file_names)
     
