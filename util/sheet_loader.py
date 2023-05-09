@@ -34,7 +34,7 @@ def verify_input_list(data_list, file_names):
         print("\n")
 
         if in_var.capitalize() == "Y":
-            in_var = input("Type number assigned to the csv: ")
+            in_var = input("Type the number of file to be removed from list: ")
             print("\n")
             if in_var.isdigit():
                 in_var = int(in_var)
@@ -54,15 +54,15 @@ def verify_input_list(data_list, file_names):
             print("Input is not in correct form!\n")
 
 
+def file_output(option, extension):
+    # Get the working directory
+    out_path = os.path.join(os.getcwd(), "processed_output"+ extension)
+    print("Output file is saved at this path: " + str(out_path))
+    # Save to working directory
+    if option == 0:
+        output.to_excel(out_path)
+    else:
+        output.to_csv(out_path)
 
-print("### Please choose the file format of your choice ###\n
-      0: Excel File (.xls)\n
-      1: Comma-Separated Values File (.csv) European (;=sep)\n
-      2: Comma-Separated Values File (.csv) American (,=sep)\n")
-choice = numeric_input_selector(3)
 
-data_dir = os.listdir()
-if choice == 0:
-    data_list, file_names = data_2_list(data_dir, ".xls", pd.read_excel)
-else:
-    data_list, file_names = data_2_list(data_dir, ".csv", pd.read_csv)
+
