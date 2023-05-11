@@ -5,9 +5,10 @@ import re
 import pandas as pd
 from common_utils import *
 
+
 def data_2_list(data_dir, file_format, reader):
     data_list = []  # Create a list with csv loaded as pandas
-    file_names = [] # Store a list of valid file names
+    file_names = []  # Store a list of valid file names
     for i in data_dir:
         if i.endswith(file_format):
             try:
@@ -54,15 +55,15 @@ def verify_input_list(data_list, file_names):
             print("Input is not in correct form!\n")
 
 
-def file_output(option, extension):
+def file_output(out_data, option, extension):
     # Get the working directory
     out_path = os.path.join(os.getcwd(), "processed_output"+ extension)
     print("Output file is saved at this path: " + str(out_path))
     # Save to working directory
     if option == 0:
-        output.to_excel(out_path)
+        out_data.to_excel(out_path)
     else:
-        output.to_csv(out_path)
+        out_data.to_csv(out_path)
 
 
 

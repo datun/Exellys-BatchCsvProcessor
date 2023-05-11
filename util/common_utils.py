@@ -1,9 +1,7 @@
-
-
 def numeric_input_selector(choice_range):
-    while true:
+    while True:
         selection = input("Type your choice: ")
-        try int(selection):
+        try:
             if int(selection) not in range(choice_range):
                 print("ERROR: Input is out of bounds!\n")
             else:
@@ -13,7 +11,7 @@ def numeric_input_selector(choice_range):
 
 
 def yesno_input():
-    while true:
+    while True:
         selection = input("Enter Y for YES, N for NO: ")
         if selection == "Y" or selection == "1":
             return True
@@ -24,9 +22,9 @@ def yesno_input():
 
 
 def numeric_input():
-    while true:
+    while True:
         selection = input("Enter a numeric value: ")
-        try int(selection):
+        try:
             print("Value is: "+ str(int(selection)) + " is this correct?")
             if yesno_input():
                 return int(selection)
