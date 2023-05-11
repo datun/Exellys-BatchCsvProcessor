@@ -62,7 +62,7 @@ from common_utils import * as util
 
 
 def average(data_list, file_names):
-    output = []
+    processed = []
     # Create dataframes with file name and averages
     for i in range(len(data_list)):
         df = data_list[i]
@@ -70,11 +70,25 @@ def average(data_list, file_names):
         # HARDCODED COLUMN LOCATION REMEMBER TO MODIFY AFTERWARDS #
         interm = pd.DataFrame(df.iloc[:,2:6].mean().round(3),columns=file_names[i])
         # Store in output list
-        output.append(interm)
-    return output
+        processed.append(interm)
+    return processed
 
 def highlight(data, value, direction):
     if direction:
         data = data.style.applymap(lambda x: f"color: {'red' if x < value else 'black'}")
     else:
         data = data.style.applymap(lambda x: f"color: {'red' if x > value else 'black'}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+

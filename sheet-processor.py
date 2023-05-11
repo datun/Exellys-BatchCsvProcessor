@@ -48,6 +48,18 @@ class Worksheet:
         self.hvalue = util.numeric_input()
         
 
+def process_data(sheet, data_list, file_names):
+    # Currently only for taking averages.
+    if sheet.highlight:
+        output = sheetOps.highlight(sheetOps.average(data_list, file_names), sheet.hvalue, sheet.hdirection)
+    else:
+        output = sheetOps.average(data_list, file_names)
+
+    return output
+
+
+
+
 # Global Variables
 data_dir = os.listdir()
 
@@ -78,7 +90,6 @@ if __name__ == "__main__":
     if data_list:
         sheetIO.verify_input_list(data_list, file_names)
         if len(data_list):
-            output = sheetOps.average(data_list, file_names)
     
             # Concat the output list
             output = pd.concat(output, axis=1)
